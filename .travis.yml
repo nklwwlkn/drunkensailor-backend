@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "12"
+notifications:
+  slack: digitalproductschool:1ij538lbdu2n9F68PW2KjsGx
 script:
   - echo "Build starts"
   - echo "Installing Dependencies"
