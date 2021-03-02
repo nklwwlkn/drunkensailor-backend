@@ -36,18 +36,20 @@ const signToken = id => {
   };
 
   exports.signup = catchAsync(async (req, res, next) => {
+    const {name, email, yearOfBirth, gender, searchDistance, postalCode, role, password, passwordConfirm } = req.body
+
     const newUser = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      yearOfBirth: req.body.yearOfBirth,
-      gender: req.body.gender,
-      role: req.body.role,
-      password: req.body.password,
-      passwordConfirm: req.body.passwordConfirm,
-      passwordChangedAt: req.body.passwordChangedAt
+      name,
+      email,
+      yearOfBirth,
+      gender,
+      searchDistance,
+      postalCode,
+      role,
+      password,
+      passwordConfirm
     });
   
-   
     sendToken(newUser, 201, res);
   });
 
@@ -70,5 +72,41 @@ const signToken = id => {
     
     sendToken(user, 200, res);
   });
+
+  exports.protect = catchAsync(async (req, res, next) => {
+    let token;
+  
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+  
+    if (!token) {
+      return next(new AppError('You are not logged in. Please login to access'));
+    }
+  
+    const decoded = await util.promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  
+    const currentUser = await User.findById(decoded.id);
+  
+    if (!currentUser) {
+      return next(new AppError('The user with this token does not exist', 401));
+    }
+  
+    if (currentUser.isPasswordChanged(decoded.iat)) {
+      return next(new AppError('Password has been changed, please log in', 401));
+    }
+  
+    req.user = currentUser;
+    next();
+  });
+  
+  exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        return next(new AppError('You do not have permission to perform this action'), 403);
+      }
+      next();
+    };
+  };
   
 

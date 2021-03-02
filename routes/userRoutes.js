@@ -1,16 +1,18 @@
 const express = require('express');
 
-const authConrtoller = require('../controllers/authController');
+const authController = require('../controllers/authController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
-router.post('/signup', authConrtoller.signup);
-router.post('/signin', authConrtoller.signin);
+router.post('/signup', authController.signup);
+router.post('/signin', authController.signin);
 
+router.use(authController.protect);
+
+router.get('/me', userController.getMe, userController.getUser);
 /**
  * @TODO
- * POST/signup
- * POST/signin
  * POST/forgotPassword
  * Middleware to protect routes with auth/roles-restriction
  * GET/me
