@@ -25,6 +25,72 @@ const userSchema = new mongoose.Schema({
         type: Date,
         required: [true, "User must provide the year of birth"]
     },
+    postalCode: {
+      type: String,
+      required: [true, "User must provide their postal code"]
+    },
+    searchDistance: {
+      type: String,
+      required: [true, "User must provide their search distance"]
+    },
+    waysToMakeDifference: {
+      type: [String],
+      validate: {
+        validator(ways) {
+          let existingWaysToMakeDifference = [
+            "Supporting & Mentoring",
+            "Teaching & Education",
+            "Healthcare",
+            "IT & Computers",
+            "Plants & Gardening",
+            "Food Preparation & Distribution",
+            "Arts & Crafts",
+            "Music & Film",
+            "Construction & Maintenance",
+            "Sports"];
+
+            let isExists = true;
+	            for (let value of ways) {
+  	            if (existingWaysToMakeDifference.indexOf(value) === -1) {
+    	            isExists = false;
+                }
+              }
+            return isExists;
+        },
+        message: 'Check ways to make difference you are writing'
+      }
+    },
+    skills: {
+      type: [String],
+      validate: {
+        validator(skills) {
+          let existingSkills = [
+            "Empathy",
+            "Social skills",
+            "Medical skills",
+            "Cooking",
+            "Communication skills",
+            "Language",
+            "Play musical instrument",
+            "Gardening skills",
+            "Drawing & Painting",
+            "Film & Photography",
+            "PC skills",
+            "Programming",
+            "Physical work",
+            "Construction skills"];
+
+            let isExists = true;
+	            for (let skillsValue of skills) {
+  	            if (existingSkills.indexOf(skillsValue) === -1) {
+    	            isExists = false;
+                }
+              }
+            return isExists;
+        },
+        message: 'Check skills you are writing'
+      }
+    },
     role: {
         type: String,
         enum: ["volunteer", "ngo-member"],
@@ -67,6 +133,9 @@ const userSchema = new mongoose.Schema({
         default: true,
         select: false
   }
+},{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
 });
 
 userSchema.pre('save', async function(next) {
