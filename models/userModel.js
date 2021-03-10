@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: [true, "User must provide their postal code"]
     },
+    //! Убрать
     searchDistance: {
       type: String,
       required: [true, "User must provide their search distance"]

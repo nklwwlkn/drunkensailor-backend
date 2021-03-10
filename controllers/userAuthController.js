@@ -39,7 +39,8 @@ const signToken = id => {
     const {firstName, lastName, email, yearOfBirth, gender, postalCode, role, password, passwordConfirm } = req.body
 
     const newUser = await User.create({
-      name,
+      firstname,
+      lastname,
       email,
       yearOfBirth,
       gender,
