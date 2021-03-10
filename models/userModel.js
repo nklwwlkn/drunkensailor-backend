@@ -6,9 +6,13 @@ const bcrypt = require('bcrypt');
 
 
 const userSchema = new mongoose.Schema({
-    name: {
+    firstName: {
         type: String,
-        required: [true, "User must have a name"]
+        required: [true, "User must have a firstname"]
+    },
+    lastName: {
+      type: String,
+      required: [true, "User must have a lastname"]
     },
     email: {
         type: String,
@@ -38,16 +42,16 @@ const userSchema = new mongoose.Schema({
       validate: {
         validator(ways) {
           let existingWaysToMakeDifference = [
-            "Supporting & Mentoring",
-            "Teaching & Education",
-            "Healthcare",
-            "IT & Computers",
-            "Plants & Gardening",
-            "Food Preparation & Distribution",
-            "Arts & Crafts",
-            "Music & Film",
-            "Construction & Maintenance",
-            "Sports"];
+            "supporting & mentoring",
+            "teaching & education",
+            "healthcare",
+            "it & computers",
+            "plants & gardening",
+            "food preparation & distribution",
+            "arts & crafts",
+            "music & film",
+            "construction & maintenance",
+            "sports"];
 
             let isExists = true;
 	            for (let value of ways) {
@@ -65,20 +69,20 @@ const userSchema = new mongoose.Schema({
       validate: {
         validator(skills) {
           let existingSkills = [
-            "Empathy",
-            "Social skills",
-            "Medical skills",
-            "Cooking",
-            "Communication skills",
-            "Language",
-            "Play musical instrument",
-            "Gardening skills",
-            "Drawing & Painting",
-            "Film & Photography",
-            "PC skills",
-            "Programming",
-            "Physical work",
-            "Construction skills"];
+            "empathy",
+            "social skills",
+            "medical skills",
+            "cooking",
+            "communication skills",
+            "language",
+            "play musical instrument",
+            "gardening skills",
+            "drawing & Painting",
+            "film & Photography",
+            "pc skills",
+            "programming",
+            "physical work",
+            "construction skills"];
 
             let isExists = true;
 	            for (let skillsValue of skills) {
@@ -93,12 +97,11 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["volunteer", "ngo-member"],
+        enum: ["volunteer"],
         default: "volunteer"
     },
     interests: {
         type: [String],
-        required: [true, "User must choose at least one field they're interested in"] 
     },
     photos: {
         type: [String]

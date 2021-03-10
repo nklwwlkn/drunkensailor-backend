@@ -1,14 +1,14 @@
 const express = require('express');
 
-const authController = require('../controllers/authController');
+const userAuthController = require('../controllers/userAuthController');
 const userController = require('../controllers/userController');
 
 const router = express.Router();
 
-router.post('/signup', authController.signup);
-router.post('/signin', authController.signin);
+router.post('/signup', userAuthController.signup);
+router.post('/signin', userAuthController.signin);
 
-router.use(authController.protect);
+router.use(userAuthController.protect);
 
 router.get('/me', userController.getMe, userController.getUser);
 /**
