@@ -30,6 +30,18 @@ const projectSchema = new mongoose.Schema(
       locationType: {
           type: String
       },
+      companyName: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      streetAddress: {
+        type: String
+      },
+      weekdays: {
+        type: [String]
+      },
       location: {
           type: {
             type: String,
@@ -53,15 +65,6 @@ const projectSchema = new mongoose.Schema(
       endTime: {
         type: String
       },
-      recurringEvent: {
-        type: Boolean
-      },
-      ageRestrictions: {
-        type: Boolean
-      },
-      genderRestrictions: {
-        type: Boolean
-      },
       requirements: {
         type: [String],
         validate: {
@@ -75,8 +78,8 @@ const projectSchema = new mongoose.Schema(
                 "language",
                 "play musical instrument",
                 "gardening skills",
-                "drawing & Painting",
-                "film & Photography",
+                "drawing & painting",
+                "film & photography",
                 "pc skills",
                 "programming",
                 "physical work",
@@ -109,17 +112,12 @@ const projectSchema = new mongoose.Schema(
 projectSchema.index({ location: '2dsphere' })
 
 projectSchema.pre(/^find/, function(next) {
- 
-
   this.populate({
     path: 'ngo',
     select: 'name'
   });
   next();
 });
-
-
-
 
 
 const Project = mongoose.model('Project', projectSchema);
