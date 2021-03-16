@@ -36,17 +36,15 @@ const signToken = id => {
   };
 
   exports.signup = catchAsync(async (req, res, next) => {
-    const {firstName, lastName, email, yearOfBirth, gender, postalCode, role, password, passwordConfirm } = req.body
+    const {firstName, lastName, email, yearOfBirth, gender, postalCode, password, passwordConfirm } = req.body
 
     const newUser = await User.create({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       yearOfBirth,
       gender,
-      searchDistance,
       postalCode,
-      role,
       password,
       passwordConfirm
     });
