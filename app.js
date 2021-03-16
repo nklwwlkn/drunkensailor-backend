@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -7,9 +8,11 @@ const userRouter = require('./routes/userRoutes');
 const ngoRouter = require('./routes/ngoRoutes');
 const projectRouter = require('./routes/projectRoutes');
 
+
 const app = express();
 
 app.use(helmet())
+app.use(cors());
 
 app.use(express.json());
 
