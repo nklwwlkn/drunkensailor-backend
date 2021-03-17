@@ -82,6 +82,8 @@ const signToken = id => {
     if (!token) {
       return next(new AppError('You are not logged in. Please login to access'));
     }
+
+    console.log(token);
   
     const decoded = await util.promisify(jwt.verify)(token, process.env.JWT_SECRET);
   
