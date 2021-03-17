@@ -96,7 +96,6 @@ const projectSchema = new mongoose.Schema(
             message: 'Check requirements you are writing'
           }
       },
-      imageCover: String,
       images: [String],
       CreatedAt: {
         type: Date,
