@@ -22,7 +22,7 @@ const projectSchema = new mongoose.Schema(
           type: String
       },
       numberOfVolunteers: {
-          type: Number
+          type: String
       },
       description: {
           type: String
@@ -41,15 +41,6 @@ const projectSchema = new mongoose.Schema(
       },
       weekdays: {
         type: [String]
-      },
-      location: {
-          type: {
-            type: String,
-            default: 'Point',
-            enum: ['Point']
-          },
-          coordinates: [Number],
-          address: String,
       },
       startDate: {
         type: Date,
