@@ -39,6 +39,9 @@ const projectSchema = new mongoose.Schema(
       streetAddress: {
         type: String
       },
+      postalCode: {
+        type: String
+      },
       weekdays: {
         type: [String]
       },
