@@ -18,7 +18,7 @@ router
 router.route('/:id').get(ngoController.getNgo)
 
 
-// router.get('/me', userController.getMe, userController.getUser);
+router.get('/me', ngoController.getMe, ngoController.getNgo);
 /**
  * @TODO
  * POST/forgotPassword
