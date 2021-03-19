@@ -11,9 +11,12 @@ router.post('/signin', userAuthController.signin);
 router.use(userAuthController.protect);
 
 router.get('/me', userController.getMe, userController.getUser);
+
+router.patch('/updateMe', userController.updateMe);
+
 /**
  * @TODO
- * POST/forgotPassword
+ * POST/forgotPasswords
  * Middleware to protect routes with auth/roles-restriction
  * GET/me
  * PATCH/updateMe
