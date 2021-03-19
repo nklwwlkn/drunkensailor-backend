@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     searchDistance: {
       type: String,
     },
-    waysToMakeDifference: {
+    activities: {
       type: [String],
       validate: {
         validator(ways) {
