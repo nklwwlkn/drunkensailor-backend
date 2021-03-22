@@ -3,19 +3,58 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const userAuthController = require('./userAuthController');
+const ngoAuthController = require('../controllers/ngoAuthController')
 const factory = require('./handlerFactory');
+const email = require('../utils/emailNotify');
+const upload = require("../utils/imageUpload");
+
+exports.uploadProjectPhoto = upload.single("images", 1);
 
 exports.getAllProjects = factory.getAll(Project);
 exports.getProject = factory.getOne(Project);
 exports.updateProject = factory.updateOne(Project);
 exports.deleteproject = factory.deleteOne(Project);
-exports.createProject = factory.createOne(Project);
+exports.createProject = catchAsync(async (req, res) => {
+  req.body.images = [];
+  if (req.file) {
+    const fileName = req.file.location.split("/")[3];
+    req.body.images.push(
+      {
+        original: `https://naida-image-bucket.s3.eu-north-1.amazonaws.com/${fileName}`,
+        l: `http://naida-image-bucket.s3-website.eu-north-1.amazonaws.com/450xAUTO/${fileName}`,
+        m: `http://naida-image-bucket.s3-website.eu-north-1.amazonaws.com/300xAUTO/${fileName}`,
+        s: `http://naida-image-bucket.s3-website.eu-north-1.amazonaws.com/150xAUTO/${fileName}`,
+        xs: `http://naida-image-bucket.s3-website.eu-north-1.amazonaws.com/100xAUTO/${fileName}`,
+      }
+    );
+  }
+
+  const doc = await Project.create(req.body);
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      doc,
+    },
+  });
+});
 
 exports.setNgosProjectsId = (req, res, next) => {
   if (!req.body.project) req.body.project = req.params.projectId;
   if (!req.body.ngo) req.body.ngo = req.user;
   next();
 };
+
+exports.notifyUser = catchAsync(async (req, res, next) => {
+  const { from, to, fromName, toName } = req.body;
+
+  const response = await email(from, to, fromName, toName)
+
+  res.status(200).json({
+    status: "success",
+    data: response
+  })
+})
 
 
 exports.getProjectsWithin = catchAsync(async (req, res, next) => {

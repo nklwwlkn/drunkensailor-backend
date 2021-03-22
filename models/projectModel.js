@@ -7,8 +7,6 @@ const projectSchema = new mongoose.Schema(
         type: String,
         required: [true, 'A project must have a title'],
         unique: true,
-        maxlength: [40, 'A project title must be less than 40 characters'],
-        minlength: [10, 'A project title must be more than 10 characters']
       },
       contactPersonName: {
           type: String
@@ -90,7 +88,7 @@ const projectSchema = new mongoose.Schema(
             message: 'Check requirements you are writing'
           }
       },
-      images: [String],
+      images: Array,
       CreatedAt: {
         type: Date,
         default: Date.now()

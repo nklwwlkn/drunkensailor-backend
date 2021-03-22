@@ -8,7 +8,10 @@ const router = express.Router({mergeParams: true});
 router
   .route('/')
   .get(projectController.getAllProjects)
-  .post(ngoAuthController.protect, projectController.setNgosProjectsId, projectController.createProject);
+  .post(ngoAuthController.protect, projectController.uploadProjectPhoto, projectController.setNgosProjectsId, projectController.createProject);
+
+router.route('/notify').post(ngoAuthController.protect, projectController.notifyUser)
+
 
 router
   .route('/:id')
