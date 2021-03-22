@@ -72,20 +72,18 @@ const userSchema = new mongoose.Schema({
       validate: {
         validator(skills) {
           let existingSkills = [
-            "empathy",
-            "social skills",
-            "medical skills",
-            "cooking",
-            "communication skills",
-            "language",
-            "play musical instrument",
-            "gardening skills",
-            "drawing & Painting",
-            "film & Photography",
-            "pc skills",
-            "programming",
-            "physical work",
-            "construction skills"];
+                "programming",
+                "pc skills",
+                "film & photography",
+                "drawing & painting",
+                "physical work",
+                "construction skills",
+                "play musical instrument",
+                "gardening skills",
+                "communication skills",
+                "language",
+                "cooking",
+                "medical skills"];
 
             let isExists = true;
 	            for (let skillsValue of skills) {

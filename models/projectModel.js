@@ -62,21 +62,20 @@ const projectSchema = new mongoose.Schema(
         validate: {
             validator(requirements) {
               let existingRequirements = [
-                "empathy",
-                "social skills",
-                "medical skills",
-                "cooking",
-                "communication skills",
-                "language",
+                "programming",
+                "pc skills",
+                "film & photography",
+                "drawing & painting",
+                "physical work",
+                "construction skills",
                 "play musical instrument",
                 "gardening skills",
-                "drawing & painting",
-                "film & photography",
-                "pc skills",
-                "programming",
-                "physical work",
-                "construction skills"];
-    
+                "communication skills",
+                "language",
+                "cooking",
+                "medical skills"
+                ];
+                
                 let isExists = true;
                     for (let value of requirements) {
                       if (existingRequirements.indexOf(value) === -1) {
