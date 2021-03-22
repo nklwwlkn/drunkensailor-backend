@@ -16,6 +16,7 @@ exports.updateProject = factory.updateOne(Project);
 exports.deleteproject = factory.deleteOne(Project);
 exports.createProject = catchAsync(async (req, res) => {
   req.body.images = [];
+  console.log(req.body);
   if (req.file) {
     const fileName = req.file.location.split("/")[3];
     req.body.images.push(
